@@ -2,28 +2,28 @@
 library(Rcpp)
 library(RcppEigen)
 library(RcppArmadillo)
-Rcpp::sourceCpp("MCCLC_full_categorical.cpp") #full SEM-Gibbs
-#Rcpp::sourceCpp("MCCLC_hybrid_categorical.cpp") #hybrid SEM-Gibbs
+Rcpp::sourceCpp("MCCLC_full_categorical.cpp") 
 
-L <- 4
+L <- 3
 R <- H <- 2
-K <- 24
-Q <- 36
-ph <- c(0.625,0.375)
-pr <- c(0.25,0.75)
+K <- 30
+Q <- 15
+ph <- c(0.8,0.2)
+pr <- c(0.4,0.6)
 
-pxwz<-matrix(c(0.4,0.3,0.2,0.1,0.15,0.05,0.35,0.45,0.05,0.55,0.15,0.25,0.3,0.05,0.5,0.15),nrow=H*R,ncol=L,byrow=T)
+pxwz<-matrix(c(0.5,0.3,0.2,0.1,0.6,0.3,0.2,0.1,0.7,0.6,0.1,0.3),nrow=H*R,ncol=L,byrow=T)
 
 c1=2
-c2=3
-c3=4
 
-p1<-matrix(c(0.8,0.9,0.3,0.1,0.2,0.1,0.7,0.9),nrow=c1,ncol=L,byrow=T)
-p2<-matrix(c(0.7,0.8,0.2,0.3,0.3,0.2,0.8,0.7),nrow=c1,ncol=L,byrow=T)
-p3<-matrix(c(0.7,0.8,0.1,0.15,0.1,0.05,0.7,0.65,0.2,0.15,0.2,0.2),nrow=c2,ncol=L,byrow=T)
-p4<-matrix(c(0.8,0.1,0.7,0.2,0.05,0.7,0.1,0.7,0.15,0.2,0.2,0.1),nrow=c2,ncol=L,byrow=T)
-p5<-matrix(c(0.65,0.1,0.6,0.2,0.1,0.65,0.1,0.6,0.1,0.1,0.2,0.1,0.15,0.15,0.1,0.1),nrow=c3,ncol=L,byrow=T)
-p6<-matrix(c(0.75,0.2,0.7,0.1,0.05,0.6,0.1,0.7,0.05,0.05,0.1,0.15,0.15,0.15,0.1,0.05),nrow=c3,ncol=L,byrow=T)
+p1<-matrix(c(0.8,0.2,0.9,0.2,0.8,0.1),nrow=c1,ncol=L,byrow=T)
+p2<-matrix(c(0.7,0.3,0.8,0.3,0.7,0.2),nrow=c1,ncol=L,byrow=T)
+p3<-matrix(c(0.9,0.8,0.3,0.1,0.2,0.7),nrow=c1,ncol=L,byrow=T) 
+#Scenario 1
+p4<-matrix(c(0.615384615,0.153846154,0.153846154,0.076923077,0.449542052,0.192640907,0.192640907,0.165137025,0.024390244,0.097560976,0.097560976,0.780487805),nrow=4,ncol=L,byrow=F)
+#Scenario 2
+#p4<-matrix(c(0.622568004,0.155642057,0.155642057,0.066147882,0.460960239,0.197553965,0.197553965,0.143931831,0.027624332,0.110497287,0.110497287,0.751381094),nrow=4,ncol=L,byrow=F)
+p5<-matrix(c(0.1,0.05,0.2,0.7,0.8,0.6,0.2,0.15,0.2),nrow=c2,ncol=L,byrow=T)
+p6<-matrix(c(0.2,0.15,0.05,0.65,0.75,0.7,0.15,0.1,0.25),nrow=c2,ncol=L,byrow=T)
 
 
 S <- 100
@@ -39,11 +39,8 @@ while(length(which(components2==1))!=round(Q*pr[1])){ #remove for simulation sch
   components2 <- sample(1:R,prob=pr,size=Q,replace=TRUE)      
 }
 
-
-nk<-13 # scenario 1.1
-nq<-13
-#nk<-24 # scenario 1.2
-#nq<-24
+nk<-10 
+nq<-10
 
 n=K*nk*Q
 
