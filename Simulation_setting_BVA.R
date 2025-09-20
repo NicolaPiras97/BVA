@@ -2,7 +2,7 @@
 library(Rcpp)
 library(RcppEigen)
 library(RcppArmadillo)
-Rcpp::sourceCpp("MCCLC_full_categorical.cpp") 
+Rcpp::sourceCpp("MCCLC_categorical_data.cpp") 
 
 L <- 3
 R <- H <- 2
@@ -14,6 +14,10 @@ pr <- c(0.4,0.6)
 pxwz<-matrix(c(0.5,0.3,0.2,0.1,0.6,0.3,0.2,0.1,0.7,0.6,0.1,0.3),nrow=H*R,ncol=L,byrow=T)
 
 c1=2
+nk<-10 
+nq<-10
+
+n=K*nk*Q
 
 p1<-matrix(c(0.8,0.2,0.9,0.2,0.8,0.1),nrow=c1,ncol=L,byrow=T)
 p2<-matrix(c(0.7,0.3,0.8,0.3,0.7,0.2),nrow=c1,ncol=L,byrow=T)
@@ -22,9 +26,6 @@ p3<-matrix(c(0.9,0.8,0.3,0.1,0.2,0.7),nrow=c1,ncol=L,byrow=T)
 p4<-matrix(c(0.615384615,0.153846154,0.153846154,0.076923077,0.449542052,0.192640907,0.192640907,0.165137025,0.024390244,0.097560976,0.097560976,0.780487805),nrow=4,ncol=L,byrow=F)
 #Scenario 2
 #p4<-matrix(c(0.622568004,0.155642057,0.155642057,0.066147882,0.460960239,0.197553965,0.197553965,0.143931831,0.027624332,0.110497287,0.110497287,0.751381094),nrow=4,ncol=L,byrow=F)
-p5<-matrix(c(0.1,0.05,0.2,0.7,0.8,0.6,0.2,0.15,0.2),nrow=c2,ncol=L,byrow=T)
-p6<-matrix(c(0.2,0.15,0.05,0.65,0.75,0.7,0.15,0.1,0.25),nrow=c2,ncol=L,byrow=T)
-
 
 S <- 100
 for(s in 1:S){
@@ -38,11 +39,6 @@ components2<-rep(0,Q)
 while(length(which(components2==1))!=round(Q*pr[1])){ #remove for simulation scheme i. (random sampling of memberships of level-2 units)
   components2 <- sample(1:R,prob=pr,size=Q,replace=TRUE)      
 }
-
-nk<-10 
-nq<-10
-
-n=K*nk*Q
 
 data <- matrix(nrow=n,ncol=3) 
 data[,1] <- seq(1:n)
@@ -70,8 +66,7 @@ datac<-cbind(data,colh,colr)
 datacc<-datac[order(datac[,4],datac[,5]),]
 data<-datacc[,1:3]
 
-count<-c(length(which(components==1))*length(which(components2==1))*nk,length(which(components==1))*length(which(components2==2))*nk,length(which(components==2))*length(which(components2==1))*nk,length(which(components==2))*length(which(components2==2))*nk)
-
+count<-c(length(which(daticc[,4]==1 & daticc[,5]==1)),length(which(daticc[,4]==1 & daticc[,5]==2)),length(which(daticc[,4]==2 & daticc[,5]==1)),length(which(daticc[,4]==2 & daticc[,5]==2)))
 
 data2<-NULL
 samples2 <- NULL
@@ -80,7 +75,7 @@ for(j in (1:H)){
   for(m in (1:R)){
     samples <- sample(1:L,prob=pxwz[w,],size=count[w],replace=TRUE) 
     for(i in (1:count[w])){
-      data2p = cbind(sample(0:(c1-1),prob=p1[,samples[i]],size=1),sample(0:(c1-1),prob=p2[,samples[i]],size=1),sample(0:(c2-1),prob=p3[,samples[i]],size=1),sample(0:(c2-1),prob=p4[,samples[i]],size=1),sample(0:(c3-1),prob=p5[,samples[i]],size=1),sample(0:(c3-1),prob=p6[,samples[i]],size=1))
+      data2p = cbind(sample(0:(c1-1),prob=p1[,samples[i]],size=1),sample(0:(c1-1),prob=p2[,samples[i]],size=1),sample(0:(c1-1),prob=p3[,samples[i]],size=1),sample(1:4,prob=p4[,samples[i]],size=1))
       data2=rbind(data2,data2p)
     } 
     samples2<-c(samples2,samples)  
@@ -89,6 +84,23 @@ for(j in (1:H)){
 }
 data<-cbind(data,data2)  
 datac<-cbind(data,samples2)
+
+dnew<-matrix(NA,nrow=n,ncol=2)
+for(j in 1:n){
+  if(dati[j,7]==1){
+    dnew[j,]=c(0,0)
+  }
+  if(dati[j,7]==2){
+    dnew[j,]=c(0,1)
+  }
+  if(dati[j,7]==3){
+    dnew[j,]=c(1,0)
+  }
+  if(dati[j,7]==4){
+    dnew[j,]=c(1,1)
+  }
+}
+data<-cbind(data[,1:6],dnew)
 
 
 a<-order(data[,2],data[,3])
