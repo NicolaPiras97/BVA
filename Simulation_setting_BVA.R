@@ -1,4 +1,4 @@
-#Code for simulation scenario 1
+#Code for simulation BVA
 library(Rcpp)
 library(RcppEigen)
 library(RcppArmadillo)
