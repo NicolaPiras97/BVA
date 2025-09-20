@@ -252,10 +252,10 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
         }
     }
 
-    //simulazione di Prob1
+    
     mat _Prob1(_K, _H);
     mat _Prob2(_Q, _R);
-    //boost::mt19937 generator2(1234);
+    
     std::random_device rdtest;
     std::mt19937 generator(rdtest());
     mat _w(_K, _Q);
@@ -265,7 +265,7 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
     vector<int> _numr(_R);
     vector<double> _p_r(_R);
 
-    //definisco le matrici che utilizzo per la classificazione al secondo livello.
+    
     mat _w_hat(_K, _H);
     mat _z_hat(_Q, _R);
     for (int k = 0; k < _K; k++) {
@@ -280,7 +280,7 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
         }
     }
 
-    //definizioni
+    
 
     Tensor<double, 4> _f(_n, _L, _H, _R);
     //Tensor<double,4> _f(_n,_L,_H,_R);
@@ -296,11 +296,8 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
     Tensor<double, 4> _res2(_Q, _K, _H, _R);
     mat _num3(_Q, _R);
     vector<double> _den3(_Q);
-    mat _wjk(_n, _H);//estensione w in cui ripeto la k-sima riga di w _nk[k] volte
-    mat _zjq(_n, _R);//estensione z in cui ripeto la q-sima riga di z _nq[q] volte
-    //vector<int> _copiank(_K);
-    //vector<int> _copianq(_Q);
-    //Tensor<int,3> _A(_H,_n,_R);
+    mat _wjk(_n, _H);
+    mat _zjq(_n, _R);
     arma::cube _B(_n, _H, _R);
     mat _den4(_H, _R);
     //Tensor<double,4> _aa(_n,_L,_H,_R);
@@ -338,19 +335,19 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
     mat temp3(_n, _R);
     arma::cube temp4(_n, _L, _R);
 
-    //classificazione secondo livello
+    
     vector<int> _indh(_K);
     vector<int> _indr(_Q);
     mat _classif2(_n, 3);
 
-    //classificazione al primo livello
+   
     vector<int> _indl(_n);
 
     mat _classif(_n, 4);
 
     double _maxL;
 
-    //stime finali parametri
+    
     Tensor<double, 4> _pi_l_hat(_starting2, _L, _H, _R);
     //Eigen::Tensor<double, 4, 0>::operator()<double,int> _pi_l_hat(_starting2, _L, _H, _R);
     //in instantiation of function template specialization 'Eigen::Tensor<double, 4, 0>::operator()<double, int>' requested here
@@ -390,15 +387,6 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
     vector<double> _p_rc_hat(_R);
     vector<double> _p_rcc_hat(_R);
     std::fill(_p_rc_hat.begin(), _p_rc_hat.end(), 0);
-
-    /*vector<double> phcoppie(_H*(_H-1)/2);
-    vector<double> prcoppie(_R*(_R-1)/2);
-    for(int i=0;i<(_H*(_H-1)/2);i++){
-        phcoppie[i]=0;
-    }
-    for(int i=0;i<(_R*(_R-1)/2);i++){
-        prcoppie[i]=0;
-    }*/
 
     mat _Prob1_hat(_K, _H);
     mat _Prob2_hat(_Q, _R);
@@ -454,7 +442,6 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
         }
     }
 
-    //salvo i parametri per ogni iterazione e per i diversi starting points
     mat _p_h_all(_iter, _H);
     mat _p_r_all(_iter, _R);
     //vector<vector<vector<double>>> _p_h_all;
@@ -468,10 +455,6 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
 
     vector<double> logLtot(_starting2);
     vector<double> explogLtot(_starting2);
-
-    //arma::cube _de(_n,_H,_R);
-    //arma::cube _de2(_L,_H,_R);
-    //Tensor<double,4> _tau(_n, _L,_H,_R);
 
     arma_rng::set_seed_random();
 
@@ -488,7 +471,7 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
         }
     }
 
-    //inizializzazione
+    
     vector<double> _de(_n);
     vector<double> _de2(_L);
     mat _tau(_n, _L);
@@ -544,14 +527,6 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
                 }
             }
 
-            cout<<"ncc"<<endl;
-            for (int c = 0; c < C; c++) {
-                for (int cc = 0; cc < C; cc++) {
-                    cout<<n(c, cc)<<",";
-                }
-                cout<<"\n";
-            }
-            cout<<"\n";
 
             vector<int> nr(C);
             vector<int> nc(C);
@@ -582,14 +557,6 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
                 }
             }
 
-            cout<<"m0cc"<<endl;
-            for (int c = 0; c < C; c++) {
-                for (int cc = 0; cc < C; cc++) {
-                    cout<<m0(c, cc)<<",";
-                }
-                cout<<"\n";
-            }
-            cout<<"\n";
 
             for (int c = 0; c < _vC[i1]; c++) {
                 for (int cc = 0; cc < _vC[i2]; cc++) {
@@ -1077,7 +1044,7 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
         vC[i] = ma + 1;
     }
 
-    int _C; //max tra i valori che assumono le variabili+1
+    int _C; 
     //int maa;
     maa = vC[0];
     for (int i = 0; i < _I; i++) {
@@ -1652,120 +1619,7 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
         }
     }
 
-    cout << "LogL" << endl;
-    cout << logLik[indicestarting] << endl;
-
-    /*double Entropy;
-    Entropy = 0;
-    for (int j = 0; j < _n; j++) {
-        for (int l = 0; l < _L; l++) {
-            Entropy += (double) -_Tau(indicestarting, j, l) * log(_Tau(indicestarting, j, l));
-        }
-    }
-    cout << "Entropy" << endl;
-    cout << Entropy << endl;
-
-    double CL;
-    CL = logLik[indicestarting] - Entropy;
-    cout << "CL" << endl;
-    cout << CL << endl;
-
-    double completelogL;
-    completelogL = 0;
-    for (int j = 0; j < _n; j++) {
-        for (int l = 0; l < _L; l++) {
-            //completelogL +=(double) _Tau(indicestarting, j, l) * (log(_PL(indicestarting, l)) + log(_F(indicestarting, j, l)));
-            completelogL+=(double) _Tau(indicestarting,j,l)*log(_PL(indicestarting,l)*_F(indicestarting,j,l));
-        }
-    }
-    cout << "completelogL" << endl;
-    cout << completelogL << endl;
-
-    int npar1;
-    double BIC,AIC,AIC3,CAIC,SABIC,CLC,ICL_BIC,AWE;
-    double L=logLik[indicestarting];
-    npar1=0;
-    for(int i=0;i<_I;i++){
-        npar1+=vC[i]-1;
-    }
-
-    npar1 = _L*npar1+_L-1;
-    BIC = -2 * L + log(_n) * npar1;
-    SABIC = -2 * L + log((_n+2)/24) * npar1;
-    CAIC = -2 * L + (log(_n)+1) * npar1;
-    AIC = -2 * L + 2 * npar1;
-    AIC3 = -2 * L + 3 * npar1;
-    //CLC = -2 * CL;
-    //ICL_BIC = -2 * CL + log(_n)*npar1;
-    //AWE = -2 * CL + 2*(1.5+log(_n))*npar1;
-
-    cout << "BIC" << endl;
-    cout << BIC << endl;
-    cout << "AIC" << endl;
-    cout << AIC << endl;
-    cout << "AIC3" << endl;
-    cout << AIC3 << endl;
-    cout << "CAIC" << endl;
-    cout << CAIC << endl;
-    cout << "SABIC" << endl;
-    cout << SABIC << endl;
-
-
-    cout << "pl" << endl;
-    for (int l = 0; l < _L; l++) {
-        cout << _PL(indicestarting, l) << ",";
-    }
-    cout << "\n";
-
-    for (int l = 0; l < _L; l++) {
-        for (int h = 0; h < _H; h++) {
-            for (int r = 0; r < _R; r++) {
-                _pi_l(l, h, r) = _PL(indicestarting, l);
-            }
-        }
-    }*/
-
-    cout << "p(1,c,l)" << endl;
-    for (int c = 0; c < _C; c++) {
-        for (int l = 0; l < _L; l++) {
-            cout << _P(indicestarting, 0, c, l) << ",";
-        }
-        cout << "\n";
-    }
-    cout << "\n";
-    cout << "p(2,c,l)" << endl;
-    for (int c = 0; c < _C; c++) {
-        for (int l = 0; l < _L; l++) {
-            cout << _P(indicestarting, 1, c, l) << ",";
-        }
-        cout << "\n";
-    }
-    cout << "\n";
-    cout << "p(3,c,l)" << endl;
-    for (int c = 0; c < _C; c++) {
-        for (int l = 0; l < _L; l++) {
-            cout << _P(indicestarting, 2, c, l) << ",";
-        }
-        cout << "\n";
-    }
-    cout << "\n";
-    cout << "p(4,c,l)" << endl;
-    for (int c = 0; c < _C; c++) {
-        for (int l = 0; l < _L; l++) {
-            cout << _P(indicestarting, 3, c, l) << ",";
-        }
-        cout << "\n";
-    }
-    cout << "\n";
-    /*cout << "p(5,c,l)" << endl;
-    for (int c = 0; c < _C; c++) {
-        for (int l = 0; l < _L; l++) {
-            cout << _P(indicestarting, 4, c, l) << ",";
-        }
-        cout << "\n";
-    }
-    cout << "\n";*/
-
+    
     for (int st2 = 0; st2 < _starting2; st2++) {
 
         mu = 0;
@@ -1840,23 +1694,6 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
         std::fill(_p_hcc_hat.begin(), _p_hcc_hat.end(), 0);
         std::fill(_p_rcc_hat.begin(), _p_rcc_hat.end(), 0);
 
-        /*for (int i1 = 0; i1 < (_I + nlocdep); i1++) {
-            for (int i2 = 0; i2 < (_I + nlocdep); i2++) {
-                BVA(st2, vp, i1, i2) = 0;
-            }
-        }
-        for (int i = 0; i < (_I + nlocdep); i++) {
-            BVAG(st2, vp, i) = 0;
-        }
-        for (int i = 0; i < (_I + nlocdep); i++) {
-            BVAG1(st2, vp, i) = 0;
-        }
-        for (int i = 0; i < (_I + nlocdep); i++) {
-            BVAP(st2, vp, i) = 0;
-        }
-        for (int i = 0; i < (_I + nlocdep); i++) {
-            BVAP1(st2, vp, i) = 0;
-        }*/
 
         for (int k = 0; k < _K; k++) {
             for (int h = 0; h < _H; h++) {
@@ -1927,7 +1764,7 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
         }
 
 
-        //controllo cluster vuoti
+        
         vector<int> _cv(_H);
         int _pcv = 0;
         vector<int> _cv2(_R);
@@ -1996,7 +1833,7 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
             }
         }
 
-        //aggiornamento di p_h
+       
 
         for (int h = 0; h < _H; h++) {
             _p_h[h] = (double) _numh[h] / _K;
@@ -2013,7 +1850,7 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
             }
         }
 
-        //aggiornamento p_r
+        
 
         for (int r = 0; r < _R; r++) {
             _p_r[r] = (double) _numr[r] / _Q;
@@ -2022,7 +1859,7 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
         //double temp3;
         //vector<int> temp4(_Q);
 
-        //ciclo aggiornamenti
+        
         for (int u1 = 0; u1 < _iter; u1++) {
 
             for (int j = 0; j < _n; j++) {
@@ -2075,7 +1912,6 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
                 }
             }
 
-            //calcoliamo ora gli aggiornamenti delle probabilità da usare nelle multinomiali
             //for(int gi=0;gi<_iter2;gi++){
 
             for (int k = 0; k < _K; k++) {
@@ -2094,8 +1930,6 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
                 }
             }
 
-            //stiamo scrivendo in logaritmo la f(y_k|z,w_k=h)
-            //le osservazioni sono già ordinate quindi ne prendo tante quante contenute in _nkq
             int m = 0;
             for (int k = 0; k < _K; k++) {
                 for (int q = 0; q < _Q; q++) {
@@ -2168,8 +2002,7 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
                 }
             }
 
-            //P(w_k=h|y_k,z) per ogni sua riga uso le probabilità per le nuove simulazioni
-
+            
             for (int k = 0; k < _K; k++) {
                 for (int h = 0; h < _H; h++) {
                     _Prob1(k, h) = (double) _num2(k, h) / _den2[k];
@@ -2182,8 +2015,7 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
                 for (int h = 0; h < _H; h++) {
                     _cv[h] = 0;
                 }
-                //mi serve subito aggiornare w per usarla nel calcolo delle probabilità di z per fare il Gibbs sampler
-                _w.zeros(_K, _H);
+                 _w.zeros(_K, _H);
                 //boost::mt19937 generator2(1234);
                 for (int k = 0; k < _K; k++) {
                     boost::random::discrete_distribution<int> distribution4(_Prob1.row(k).begin(), _Prob1.row(k).end());
@@ -2209,8 +2041,7 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
                 }
             }
 
-            //aggiornamento di p_h
-
+            
             for (int h = 0; h < _H; h++) {
                 _p_h[h] = (double) _numh[h] / _K;
             }
@@ -2359,8 +2190,7 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
                 }
             }
 
-            //aggiornamento p_r
-
+            
             for (int r = 0; r < _R; r++) {
                 _p_r[r] = (double) _numr[r] / _Q;
             }
@@ -2411,11 +2241,7 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
                 }
             }
 
-            //LL approximation
-            /*if (u1 > it[mu]) {
-                mu = mu + 1;
-            }*/
-
+            
             //if (u1 >= _burn && u1 != it[mu]) {
 
             for (int k = 0; k < _K; k++) {
@@ -2446,8 +2272,6 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
                     }
                 }
 
-//stiamo scrivendo in logaritmo la f(y_k|z,w_k=h)
-//le osservazioni sono già ordinate quindi ne prendo tante quante contenute in _nkq
                 m = 0;
                 for (int k = 0; k < _K; k++) {
                     for (int q = 0; q < _Q; q++) {
@@ -2522,7 +2346,6 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
                     }
                 }
 
-//P(w_k=h|y_k,z) per ogni sua riga uso le probabilità per le nuove simulazioni
 
                 for (int k = 0; k < _K; k++) {
                     for (int h = 0; h < _H; h++) {
@@ -2537,7 +2360,6 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
                     for (int h = 0; h < _H; h++) {
                         _cv[h] = 0;
                     }
-//mi serve subito aggiornare w per usarla nel calcolo delle probabilità di z per fare il Gibbs sampler
                     _w.zeros(_K, _H);
 //boost::mt19937 generator2(1234);
                     for (int k = 0; k < _K; k++) {
@@ -3076,19 +2898,13 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
 
             //}
 
-            //aggiornamento probabilità categoriale
-
+            
             vector<int> _dephr(_I);
             for (int i = 0; i < _I; i++) {
                 _dephr[i] = 0;
             }
+          //set 1 for direct effect from W, 2 for direct effect from Z and 3 for direct effect from W and Z
             //_dephr[0]=1;
-            //_dephr[1]=3;
-            //_dephr[2]=2;
-            //_dephr[3]=2;
-            //_dephr[4]=2;
-            //_dephr[5]=3;
-            //_dephr[6]=2;
 
 
             for (int l = 0; l < _L; l++) {
@@ -3476,8 +3292,6 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
             }
 
 
-            //media parametri
-
             if (u1 >= _burn && u1 == it[mu]) {
                 mu=mu+1;
                 //sommo le _p_h
@@ -3485,7 +3299,7 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
                     _p_h_hat(st2, h) += _p_h[h];
                 }
 
-                //sommo _p_r
+                
                 for (int r = 0; r < _R; r++) {
                     _p_r_hat(st2, r) += _p_r[r];
                 }
@@ -3498,7 +3312,7 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
                     _p_rc_hat[r] += _p_rc[r];
                 }
 
-                //sommo le _pi_l
+                
                 for (int l = 0; l < _L; l++) {
                     for (int h = 0; h < _H; h++) {
                         for (int r = 0; r < _R; r++) {
@@ -3507,7 +3321,7 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
                     }
                 }
 
-                //sommo le _p
+                
                 for (int i = 0; i < _I; i++) {
                     for (int c = 0; c < _C; c++) {
                         for (int l = 0; l < _L; l++) {
@@ -3671,14 +3485,7 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
                 for (int q = 0; q < _Q; q++) {
                     samples2[q] = distributionn2(generatorr2);
                 }
-                //sumsamples = 0;
-                //for (int q = 0; q < _Q; q++) {
-                //    sumsamples += samples2[q];
-                //}
-                //if(sumsamples==26){
-                //    pr=49;
-                //}
-                //}
+                
 
                 vector<int> _zj(_n);
                 for (int j = 0; j < _n; j++) {
@@ -4158,30 +3965,7 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
                     }
                 }
 
-                cout << "_pi_l_hat(l,0,0)";
-                cout << "\n";
-                for (int l = 0; l < _L; l++) {
-                    cout << _pi_l_hat(0,l, 0, 0) << ",";
-                }
-                cout << "\n";
-                cout << "_pi_l_hat(l,0,1)";
-                cout << "\n";
-                for (int l = 0; l < _L; l++) {
-                    cout << _pi_l_hat(0,l, 0, 1) << ",";
-                }
-                cout << "\n";
-                cout << "_pi_l_hat(l,1,0)";
-                cout << "\n";
-                for (int l = 0; l < _L; l++) {
-                    cout << _pi_l_hat(0,l, 1, 0) << ",";
-                }
-                cout << "\n";
-                cout << "_pi_l_hat(l,1,1)";
-                cout << "\n";
-                for (int l = 0; l < _L; l++) {
-                    cout << _pi_l_hat(0,l, 1, 1) << ",";
-                }
-                cout << "\n";
+                
 
                 for (int i = 0; i < (_H - 1); i++) {
                     min1 = i;
@@ -4499,15 +4283,6 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
 
         logLapprox2 = explogL + Entropy;
 
-        cout << "explogL" << endl;
-        cout << explogL << endl;
-
-        cout << "Entropy" << endl;
-        cout << Entropy << endl;
-
-        cout << "logLapprox2" << endl;
-        cout << logLapprox2 << endl;
-
         logLtot[st2] = logLapprox2;
         explogLtot[st2] = explogL; //2
 
@@ -4777,7 +4552,7 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
     cout << "\n";
 
 
-    //calcolo max log-liklihood
+    
     for (int j = 0; j < _n; j++) {
         for (int l = 0; l < _L; l++) {
             for (int h = 0; h < _H; h++) {
@@ -4841,8 +4616,6 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
     }
 
 
-    //stiamo scrivendo in logaritmo la f(y_k|z,w_k=h)
-    //le osservazioni sono già ordinate quindi ne prendo tante quante contenute in _nkq
     int ml = 0;
     for (int k = 0; k < _K; k++) {
         for (int q = 0; q < _Q; q++) {
@@ -4857,8 +4630,7 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
         }
     }
 
-    //calcolo la log-liklihood
-    //double _logL=0;
+    
 
     for (int k = 0; k < _K; k++) {
         for (int q = 0; q < _Q; q++) {
@@ -4895,10 +4667,7 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
     double denentr1 = 0;
     double denentr2 = 0;
 
-    //entropyhigh=1-(double)numentr2/(denentr2);
-    //cout<<"entropyhigh"<<endl;
-    //cout<<entropyhigh<<endl;
-
+    
     //-------------------------------------------------------------------
 
     // classification statistics
@@ -4959,8 +4728,7 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
         }
     }
 
-    //densità che scriverò in forma esponenziale
-
+    
     for (int j = 0; j < _n; j++) {
         for (int l = 0; l < _L; l++) {
             for (int h = 0; h < _H; h++) {
@@ -5016,7 +4784,6 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
     _z_hat.zeros(_Q, _R);
     _x_hat.zeros(_n, _L);
 
-//calcoliamo ora gli aggiornamenti delle probabilità da usare nelle multinomiali
     for (int gi = 0; gi < _iter3; gi++) {
 
         for (int k = 0; k < _K; k++) {
@@ -5036,9 +4803,7 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
         }
 
 
-//stiamo scrivendo in logaritmo la f(y_k|z,w_k=h)
-//le osservazioni sono già ordinate quindi ne prendo tante quante contenute in _nkq
-        int m = 0;
+       int m = 0;
         for (int k = 0; k < _K; k++) {
             for (int q = 0; q < _Q; q++) {
                 for (int h = 0; h < _H; h++) {
@@ -5113,7 +4878,6 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
             }
         }
 
-//P(w_k=h|y_k,z) per ogni sua riga uso le probabilità per le nuove simulazioni
 
         for (int k = 0; k < _K; k++) {
             for (int h = 0; h < _H; h++) {
@@ -5128,7 +4892,6 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
             for (int h = 0; h < _H; h++) {
                 _cv[h] = 0;
             }
-//mi serve subito aggiornare w per usarla nel calcolo delle probabilità di z per fare il Gibbs sampler
             _w.zeros(_K, _H);
 //boost::mt19937 generator2(1234);
             for (int k = 0; k < _K; k++) {
@@ -5341,9 +5104,7 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
         }
     }
     entropyhigh = 1 - (double) numentr2 / (denentr2);
-    cout << "entropyhighpri" << endl;
-    cout << entropyhigh << endl;
-
+    
     numentr2 = 0;
     for (int k = 0; k < _K; k++) {
         for (int q = 0; q < _Q; q++) {
@@ -5358,9 +5119,7 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
         }
     }
     entropyhigh = 1 - (double) numentr2 / (denentr2);
-    cout << "entropyhighpost" << endl;
-    cout << entropyhigh << endl;
-
+    
     mat _Pwy(_K, _H);
     mat _Pwy1(_K, _H);
     mat _Pzy(_Q, _R);
@@ -5449,11 +5208,7 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
     denentr=denentr*_Q;
     centropy3 = 1 - centropy3 / denentr;
 
-    cout << "entropyKpri" << endl;
-    cout << centropy2 << endl;
-    cout << "entropyQpri" << endl;
-    cout << centropy3 << endl;
-
+   
     centropy2 = 0;
     for (int k = 0; k < _K; k++) {
         for (int h = 0; h < _H; h++) {
@@ -5488,11 +5243,7 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
 
     centropy3 = 1 - centropy3 / denentr;
 
-    cout << "entropyKpost" << endl;
-    cout << centropy2 << endl;
-    cout << "entropyQpost" << endl;
-    cout << centropy3 << endl;
-
+    
     //BVR-------------------------------------------------------------------------------------
     arma::cube empiricalpwzyest(_n, _H, _R);
 
@@ -6131,7 +5882,6 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
     }
 
 
-    //con proporzioni per congiunta
     for (int j = 0; j < _n; j++) {
         for (int l = 0; l < _L; l++) {
             for (int h = 0; h < _H; h++) {
@@ -6239,13 +5989,7 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
     ce = ce / _n;
     ce2 = ce2 / _K;
     ce3 = ce3 / _Q;
-    cout << "ce" << endl;
-    cout << ce << endl;
-    cout << "ce2" << endl;
-    cout << ce2 << endl;
-    cout << "ce3" << endl;
-    cout << ce3 << endl;
-
+    
     //lambda
     vector<double> _Plmean(_L);
     for (int l = 0; l < _L; l++) {
@@ -6286,19 +6030,7 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
     }
 
     lambda3 = 1 - ce3 / (1 - _maxx);
-
-    cout << "plmean" << endl;
-    for (int l = 0; l < _L; l++) {
-        cout << _Plmean[l] << ",";
-    }
-    cout << "\n";
-    cout << "lambda" << endl;
-    cout << lambda << endl;
-    cout << "lambda2" << endl;
-    cout << lambda2 << endl;
-    cout << "lambda3" << endl;
-    cout << lambda3 << endl;
-
+   
 
     mat Pxy(_n,_L);
     for(int j=0;j<_n;j++) {
@@ -6337,9 +6069,7 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
         }
     }
 
-    cout<<"numentr1"<<endl;
-    cout<<numentr1<<endl;
-
+   
 
     numentr1=0;
     for (int j = 0; j < _n; j++) {
@@ -6348,9 +6078,7 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
         }
     }
 
-    cout<<"numentr1"<<endl;
-    cout<<numentr1<<endl;
-
+    
     denentr1=0;
     for (int l = 0; l < _L; l++) {
         denentr1 += -1 * _Plmean[l] * log(_Plmean[l]);
@@ -6358,8 +6086,7 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
     denentr1 = denentr1 * _n;
 
     entropylow = 1 - (double) numentr1 / (denentr1);
-    cout << "entropylow" << endl;
-    cout << entropylow << endl;
+   cout << entropylow << endl;
 
     //double explogL = 0;
     Tensor<double, 4> _Pxwzy(_n, _L, _H, _R);
@@ -6413,9 +6140,7 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
         }
     }
 
-    cout<<"numentr1"<<endl;
-    cout<<numentr1<<endl;
-
+   
 
     for (int j = 0; j < _n; j++) {
         double _maxl = Pxy1(j, 0);
@@ -6454,8 +6179,7 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
         }
     }
 
-    //classificazione primo livello
-
+   
     mat _x_hat_ord(_n,_L);
     int _bb=1;
     for(int j=0;j<_n;j++){
@@ -6481,8 +6205,6 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
     }
 
 
-
-    //matrice finale di classificazione
     for(int j=0;j<_n;j++){
         _classif(j,0)=j+1;
         _classif(j,1)=_indl[j]+1;
@@ -6490,37 +6212,15 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
         _classif(j,3)=_classif2(j,2);
     }
 
-
-    ofstream foutclass("C:/Users/nicol/Desktop/statistica/Progetto/fileclassificazione.txt", ios::app);
-    for(int j=0;j<_n;j++){
-        for(int i=0;i<4;i++) {
-            foutclass << _classif(j, i) << ",";
-        }
-        foutclass<<"\n";
-    }
-    foutclass<<"\n";
-    foutclass.close();
-
-    cout<<"###############################";
-    cout<<"\n";
-
-
+   
     //ICL
     double AIC3, AIC, BIC, SABIC, CAIC,AIC3e,AICe,BICg,CAICg,BICe,SABICe,SABICg,CAICe,BICge,SABICge,CAICge;
     int npar=0;
     for(int i=0;i<_I;i++) {
         npar += _L * (_vC[i]-1);
     }
-    //ICL_BIC=-2*logLapprox2+((_R-1)*log(_Q))+((_H-1)*log(_K))+(_H*_R*(_L-1)*log(_n))+(npar*log(_n));
-    //ICL_BICg=-2*logLapprox2+((_R-1)*log(_Q))+((_H-1)*log(_K))+(_H*_R*(_L-1)*log(_n))+(npar*log(ckq));
-    //ICL_BIC2=-2*logLapprox2+((_R-1)+(_H-1)+(_H*_R*(_L-1))+npar)*log(_n);
-    //ICL_BIC2g=-2*logLapprox2+((_R-1)+(_H-1)+(_H*_R*(_L-1))+npar)*log(ckq);
     AIC3=-2*logLapprox2+ 3 * (npar+_H+_R-2+(_H*_R*(_L-1)));
     AIC=-2*logLapprox2+ 2 * (npar+_H+_R-2+(_H*_R*(_L-1)));
-    //ICL_BICe=-2*explogL2+((_R-1)*log(_Q))+((_H-1)*log(_K))+(_H*_R*(_L-1)*log(_n))+(npar*log(_n));
-    //ICL_BICge=-2*explogL2+((_R-1)*log(_Q))+((_H-1)*log(_K))+(_H*_R*(_L-1)*log(_n))+(npar*log(ckq));
-    //ICL_BIC2e=-2*explogL2+((_R-1)+(_H-1)+(_H*_R*(_L-1))+npar)*log(_n);
-    //ICL_BIC2ge=-2*explogL2+((_R-1)+(_H-1)+(_H*_R*(_L-1))+npar)*log(ckq);
     AIC3e=-2*explogL2+ 3 * (npar+_H+_R-2+(_H*_R*(_L-1)));
     AICe=-2*explogL2+ 2 * (npar+_H+_R-2+(_H*_R*(_L-1)));
     BICe = -2 * explogL2 + log(_n) * (npar+_H+_R-2+(_H*_R*(_L-1)));
@@ -6537,42 +6237,9 @@ Tensor<double, 5> _p_finale(_I, C, _L, _H, _R);
     CAICg = -2 * logLapprox2 + (log(ckq)+1) * (npar+_H+_R-2+(_H*_R*(_L-1)));
 
 
-    cout<<"AIC3"<<endl;
-    cout<<AIC3<<endl;
-    cout<<"AIC"<<endl;
-    cout<<AIC<<endl;
-    cout<<"BIC"<<endl;
-    cout<<BIC<<endl;
-    cout<<"BICg"<<endl;
-    cout<<BICg<<endl;
-    cout<<"SABIC"<<endl;
-    cout<<SABIC<<endl;
-    cout<<"SABICg"<<endl;
-    cout<<SABICg<<endl;
-    cout<<"CAIC"<<endl;
-    cout<<CAIC<<endl;
-    cout<<"CAICg"<<endl;
-    cout<<CAICg<<endl;
-    cout<<"AIC3e"<<endl;
-    cout<<AIC3e<<endl;
-    cout<<"AICe"<<endl;
-    cout<<AICe<<endl;
-    cout<<"BICe"<<endl;
-    cout<<BICe<<endl;
-    cout<<"BICge"<<endl;
-    cout<<BICge<<endl;
-    cout<<"SABICe"<<endl;
-    cout<<SABICe<<endl;
-    cout<<"SABICge"<<endl;
-    cout<<SABICge<<endl;
-    cout<<"CAICe"<<endl;
-    cout<<CAICe<<endl;
-    cout<<"CAICge"<<endl;
-    cout<<CAICge<<endl;
-
     auto end = chrono::steady_clock::now();
     int elapsed_time = chrono::duration_cast<chrono::seconds>(end - start).count();
-    std::cout << "Tempo impiegato: " << elapsed_time << " sec" << std::endl;
+    std::cout << "Time: " << elapsed_time << " sec" << std::endl;
 
 }
 
