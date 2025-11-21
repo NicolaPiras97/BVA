@@ -66,7 +66,7 @@ datac<-cbind(data,colh,colr)
 datacc<-datac[order(datac[,4],datac[,5]),]
 data<-datacc[,1:3]
 
-count<-c(length(which(daticc[,4]==1 & daticc[,5]==1)),length(which(daticc[,4]==1 & daticc[,5]==2)),length(which(daticc[,4]==2 & daticc[,5]==1)),length(which(daticc[,4]==2 & daticc[,5]==2)))
+count<-c(length(which(datacc[,4]==1 & datacc[,5]==1)),length(which(datacc[,4]==1 & datacc[,5]==2)),length(which(datacc[,4]==2 & datacc[,5]==1)),length(which(datacc[,4]==2 & datacc[,5]==2)))
 
 data2<-NULL
 samples2 <- NULL
@@ -87,16 +87,16 @@ datac<-cbind(data,samples2)
 
 dnew<-matrix(NA,nrow=n,ncol=2)
 for(j in 1:n){
-  if(dati[j,7]==1){
+  if(data[j,7]==1){
     dnew[j,]=c(0,0)
   }
-  if(dati[j,7]==2){
+  if(data[j,7]==2){
     dnew[j,]=c(0,1)
   }
-  if(dati[j,7]==3){
+  if(data[j,7]==3){
     dnew[j,]=c(1,0)
   }
-  if(dati[j,7]==4){
+  if(data[j,7]==4){
     dnew[j,]=c(1,1)
   }
 }
