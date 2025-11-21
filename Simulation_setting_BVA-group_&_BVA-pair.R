@@ -64,7 +64,7 @@ datac<-cbind(data,colh,colr)
 datacc<-datac[order(datac[,4],datac[,5]),]
 data<-datacc[,1:3]
 
-count<-c(length(which(daticc[,4]==1 & daticc[,5]==1)),length(which(daticc[,4]==1 & daticc[,5]==2)),length(which(daticc[,4]==2 & daticc[,5]==1)),length(which(daticc[,4]==2 & daticc[,5]==2)))
+count<-c(length(which(datacc[,4]==1 & datacc[,5]==1)),length(which(datacc[,4]==1 & datacc[,5]==2)),length(which(datacc[,4]==2 & datacc[,5]==1)),length(which(datacc[,4]==2 & datacc[,5]==2)))
 
 data2<-NULL
 samples2 <- NULL
